@@ -1,0 +1,10 @@
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# logs / tmp
+*.log
