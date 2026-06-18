@@ -46,7 +46,7 @@
       ["corporate.html#vision", "Vision & Mission"],
       ["corporate.html#csr", "Quality Promise"],
       ["corporate.html#testimonials", "Testimonials"],
-      ["why-sangini.html", "Why Rachana"],
+      ["why-rachana.html", "Why Rachana"],
     ]},
     { key: "insights", label: "Insights", href: "blogs.html", sub: [
       ["blogs.html", "Blogs & News"],
@@ -58,7 +58,7 @@
   const ACTIVE_MAP = {
     home: "home", residential: "residential", commercial: "commercial",
     projects: "projects", locations: "projects", archives: "projects",
-    corporate: "corporate", "why-sangini": "corporate",
+    corporate: "corporate", "why-rachana": "corporate",
     blogs: "insights", careers: "insights", contact: "contact",
   };
 
@@ -142,7 +142,7 @@
           <h5>Company</h5>
           <ul>
             <li><a href="corporate.html">About Rachana</a></li>
-            <li><a href="why-sangini.html">Why Rachana</a></li>
+            <li><a href="why-rachana.html">Why Rachana</a></li>
             <li><a href="blogs.html">Blogs & News</a></li>
             <li><a href="careers.html">Careers</a></li>
             <li><a href="contact.html">Contact</a></li>

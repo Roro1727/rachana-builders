@@ -1,0 +1,11 @@
+# Source-only assets not served by the site
+FloorPlans/
+
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# editor / logs
+.vscode/
+.idea/
+*.log
