@@ -79,6 +79,31 @@
 
   const builders = { skyline, tower, villa, blueprint };
 
+  /* abstract "construction compass" watermark — a slowly rotating crane/crosshair
+     motif so any panel without a real photo still reads as deliberate, live content */
+  function rotor(seed) {
+    const r = rng(seed + 999);
+    const cx = 310 + r() * 30, cy = 78 + r() * 14, R = 68;
+    let ticks = "";
+    for (let k = 0; k < 12; k++) {
+      const a = (k / 12) * Math.PI * 2;
+      const big = k % 3 === 0;
+      const x1 = cx + Math.cos(a) * (R - (big ? 14 : 8)), y1 = cy + Math.sin(a) * (R - (big ? 14 : 8));
+      const x2 = cx + Math.cos(a) * R, y2 = cy + Math.sin(a) * R;
+      ticks += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${GOLD}" stroke-opacity="${big ? .95 : .6}" stroke-width="${big ? 2.6 : 1.3}"/>`;
+    }
+    return `
+      <g class="art-rotor" style="transform-origin:${cx.toFixed(1)}px ${cy.toFixed(1)}px">
+        <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${R + 16}" fill="url(#glow${seed})" opacity=".5"/>
+        <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${R}" fill="none" stroke="${GOLD}" stroke-opacity=".65" stroke-width="1.4" stroke-dasharray="3 6"/>
+        <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${R - 20}" fill="none" stroke="${GOLD}" stroke-opacity=".3" stroke-width="1"/>
+        ${ticks}
+        <line x1="${(cx - R + 4).toFixed(1)}" y1="${cy.toFixed(1)}" x2="${(cx + R - 4).toFixed(1)}" y2="${cy.toFixed(1)}" stroke="${GOLD}" stroke-opacity=".85" stroke-width="1.6"/>
+        <line x1="${cx.toFixed(1)}" y1="${(cy - R + 4).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${(cy + R - 4).toFixed(1)}" stroke="${GOLD}" stroke-opacity=".85" stroke-width="1.6"/>
+        <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="6" fill="${GOLD}"/>
+      </g>`;
+  }
+
   document.querySelectorAll(".art[data-art]").forEach((el, i) => {
     const kind = el.dataset.art;
     const seed = parseInt(el.dataset.seed || (i * 97 + 13), 10);
@@ -101,6 +126,7 @@
           </linearGradient>
         </defs>
         ${fn(seed)}
+        ${rotor(seed)}
         ${slice}
       </svg>`;
   });
@@ -112,6 +138,8 @@
       .art .lit { animation: twinkle 3.2s ease-in-out infinite; }
       .art .sky { transition: filter .4s ease; }
       @keyframes twinkle { 0%,100%{opacity:1} 50%{opacity:.35} }
+      .art-rotor { animation: artspin 34s linear infinite; }
+      @keyframes artspin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       .pc-visual:hover .sky, .cat-tile:hover .sky { filter: drop-shadow(0 0 6px rgba(212,175,55,.5)); }
       .art-glitch rect { animation: artslice 6s steps(1) infinite; }
       @keyframes artslice {

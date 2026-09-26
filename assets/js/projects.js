@@ -13,7 +13,12 @@
   /* type: residential | commercial · status: ready | uc
      img = clean exterior render (optional) · floorplans = real plan pages */
   const PROJECTS = [
-    { name: "Victoria 18", type: "residential", status: "ready", loc: "Subhashnagar", detail: "Residential Plots", tag: "Gated Community", note: "RERA Plots" },
+    { name: "Victoria 18", type: "residential", status: "ready", loc: "Subhashnagar", detail: "Residential Plots", tag: "Gated Community", note: "Delivered · RERA Plots", img: "victoria18", pos: "center 30%", gallery: [
+      { src: "victoria18-1", label: "Internal Street" },
+      { src: "victoria18-2", label: "Children's Play Area" },
+      { src: "victoria18-3", label: "Garden Gazebo" },
+      { src: "victoria18-4", label: "Parking & Common Area" },
+    ]},
     { name: "Victoria Prime", type: "commercial", status: "ready", loc: "Kaliyabid", detail: "Offices · Shops · Showrooms", tag: "Modern Business Hub", note: "Ready Possession", img: "prime", pos: "center", floorplans: [
       { src: "prime-fp-1", label: "Ground & First Floor" },
       { src: "prime-fp-2", label: "2nd–4th & Fifth Floor" },
@@ -37,10 +42,16 @@
   PROJECTS.forEach(p => { if (p.floorplans && p.floorplans.length) FP[slug(p.name)] = { name: p.name, plans: p.floorplans }; });
   window.RACHANA_FLOORPLANS = FP;
 
+  /* expose real photo galleries for the lightbox, keyed by project slug */
+  const GAL = {};
+  PROJECTS.forEach(p => { if (p.gallery && p.gallery.length) GAL[slug(p.name)] = { name: p.name, plans: p.gallery }; });
+  window.RACHANA_GALLERIES = GAL;
+
   const pin = '<svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
   const bldg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M9 7h2M9 11h2M9 15h2"/><path d="M17 21V9h2a1 1 0 0 1 1 1v11"/></svg>';
   const tagIc = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg>';
   const planIc = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 9v12M3 15h6"/></svg>';
+  const camIc = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
 
   function card(p, i) {
     const artClass = arts[i % arts.length];
@@ -55,6 +66,9 @@
       : `<div class="art ${artClass}" data-art="${artKind}" data-seed="${seed}" style="position:absolute;inset:0"></div>`;
     const fpBtn = (p.floorplans && p.floorplans.length)
       ? `<button class="fp-btn" data-fp="${slug(p.name)}" type="button">${planIc} Floor Plans (${p.floorplans.length})</button>`
+      : "";
+    const galBtn = (p.gallery && p.gallery.length)
+      ? `<button class="fp-btn" data-gallery="${slug(p.name)}" type="button">${camIc} Site Photos (${p.gallery.length})</button>`
       : "";
     return `
     <article class="project-card filter-item reveal" data-cat="${p.type} ${p.status} ${slug(p.loc)}" data-delay="${(i % 3) + 1}">
@@ -71,7 +85,7 @@
           <li>${bldg} ${p.detail}</li>
           <li>${tagIc} ${p.tag}</li>
         </ul>
-        ${fpBtn}
+        ${(fpBtn || galBtn) ? `<div class="pc-btn-row">${galBtn}${fpBtn}</div>` : ""}
         <div class="pc-foot">
           <div class="price">On Request<small>${p.note}</small></div>
           <a class="link-arrow" href="${detailPage}"><span>Details</span></a>

@@ -383,7 +383,18 @@ h4 { font-size: 1.3rem; }
   animation: meshfloat 18s ease-in-out infinite alternate;
 }
 @keyframes meshfloat { to { transform: translate3d(2%, -2%, 0) scale(1.06); } }
-.hero-photo { opacity: .55; z-index: 0; }
+.hero-slideshow { position: absolute; inset: 0; z-index: 0; }
+.hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 0; animation: heroSlide 25s infinite; }
+.hero-photo:nth-child(1) { animation-delay: 0s; }
+.hero-photo:nth-child(2) { animation-delay: 5s; }
+.hero-photo:nth-child(3) { animation-delay: 10s; }
+.hero-photo:nth-child(4) { animation-delay: 15s; }
+.hero-photo:nth-child(5) { animation-delay: 20s; }
+@keyframes heroSlide { 0%,100% { opacity: 0; } 3% { opacity: .58; } 18% { opacity: .58; } 21% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo { animation: none; opacity: 0; }
+  .hero-photo:first-child { opacity: .58; }
+}
 .hero-tint { position: absolute; inset: 0; z-index: 1; background:
     linear-gradient(102deg, rgba(15,14,13,.95) 0%, rgba(15,14,13,.74) 46%, rgba(15,14,13,.34) 100%),
     linear-gradient(0deg, rgba(15,14,13,.92), transparent 55%); }
@@ -641,8 +652,9 @@ h4 { font-size: 1.3rem; }
 .tab-panel.active { display: block; }
 @keyframes tabin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-/* ---- Floor-plan button + lightbox gallery ---- */
-.fp-btn { display: inline-flex; align-items: center; gap: 8px; margin: 2px 0 16px; padding: 9px 16px; border-radius: 30px; border: 1.5px solid var(--line); background: transparent; color: var(--gold-soft); font-family: var(--font-display); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: .82rem; cursor: pointer; transition: background var(--t), color var(--t), border-color var(--t), transform var(--t); }
+/* ---- Floor-plan / photo-gallery buttons + lightbox ---- */
+.pc-btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 16px; }
+.fp-btn { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 9px 16px; border-radius: 30px; border: 1.5px solid var(--line); background: transparent; color: var(--gold-soft); font-family: var(--font-display); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: .82rem; cursor: pointer; transition: background var(--t), color var(--t), border-color var(--t), transform var(--t); }
 .fp-btn svg { width: 16px; }
 .fp-btn:hover { background: var(--grad); border-color: transparent; color: #241a04; transform: translateY(-2px); }
 

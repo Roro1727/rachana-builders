@@ -1,13 +1,19 @@
 /* =====================================================================
-   RACHANA BUILDERS — Floor-plan lightbox gallery
-   Opens from any [data-fp="<project-slug>"] trigger; reads plans from
-   window.RACHANA_FLOORPLANS. Thumbnails + prev/next + click-to-zoom.
+   RACHANA BUILDERS — Floor-plan / photo-gallery lightbox
+   Opens from any [data-fp="<project-slug>"] (floor plans) or
+   [data-gallery="<project-slug>"] (real site photos) trigger.
+   Thumbnails + prev/next + click-to-zoom.
    ===================================================================== */
 (function () {
   "use strict";
   const FP = window.RACHANA_FLOORPLANS || {};
-  if (!Object.keys(FP).length) return;
-  const BASE = "assets/img/victoria/floorplans/";
+  const GAL = window.RACHANA_GALLERIES || {};
+  if (!Object.keys(FP).length && !Object.keys(GAL).length) return;
+  const BASES = {
+    fp: "assets/img/victoria/floorplans/",
+    gallery: "assets/img/victoria/gallery/",
+  };
+  let BASE = BASES.fp;
 
   const lb = document.createElement("div");
   lb.className = "lightbox";
@@ -46,11 +52,12 @@
     elThumbs.children[idx] && elThumbs.children[idx].scrollIntoView({ block: "nearest", inline: "center" });
   }
 
-  function open(slug) {
-    const data = FP[slug];
+  function open(slug, kind) {
+    const data = kind === "gallery" ? GAL[slug] : FP[slug];
     if (!data) return;
+    BASE = BASES[kind === "gallery" ? "gallery" : "fp"];
     plans = data.plans;
-    elTitle.innerHTML = data.name + "<small>Floor Plans</small>";
+    elTitle.innerHTML = data.name + "<small>" + (kind === "gallery" ? "Site Photos" : "Floor Plans") + "</small>";
     elThumbs.innerHTML = plans.map((p, k) =>
       `<button class="lb-thumb" data-i="${k}" aria-label="${p.label}"><img src="${BASE + p.src}.jpg" alt="${p.label}" loading="lazy"/></button>`).join("");
     show(0);
@@ -61,8 +68,10 @@
 
   /* open from any trigger */
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-fp]");
-    if (t) { e.preventDefault(); open(t.dataset.fp); }
+    const tFp = e.target.closest("[data-fp]");
+    const tGal = e.target.closest("[data-gallery]");
+    if (tFp) { e.preventDefault(); open(tFp.dataset.fp, "fp"); }
+    else if (tGal) { e.preventDefault(); open(tGal.dataset.gallery, "gallery"); }
   });
 
   /* controls */
