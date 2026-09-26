@@ -69,7 +69,7 @@
   const PHONE_DISPLAY = "+91 93277 87878";
   const PHONE_TEL = "+919327787878";
   const PHONE_ALT = ["+91 94279 09192", "+91 94285 90382"];
-  const EMAIL = "sales@rachanabuilders.in";
+  const EMAIL = "rachanabuilders1@gmail.com";
 
   /* ---- build header ---- */
   const brand = `
@@ -151,7 +151,7 @@
         <div class="footer-col">
           <h5>Get in Touch</h5>
           <ul class="footer-contact">
-            <li>${I.pin}<span>Shop No. 319, 3rd Floor, Eva Surbhi Complex, Waghawadi Road, Bhavnagar – 364001, Gujarat</span></li>
+            <li>${I.pin}<span>702 Rachana Builders, Victoria Heights, Opp Victoria Park, Dilahar Tank Road, Bhavnagar</span></li>
             <li>${I.phone}<span><a href="tel:${PHONE_TEL}">${PHONE_DISPLAY}</a><br /><a href="tel:${PHONE_ALT[0].replace(/\s/g,"")}">${PHONE_ALT[0]}</a> · <a href="tel:${PHONE_ALT[1].replace(/\s/g,"")}">${PHONE_ALT[1]}</a></span></li>
             <li>${I.mail}<a href="mailto:${EMAIL}">${EMAIL}</a></li>
           </ul>

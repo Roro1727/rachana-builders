@@ -14,17 +14,39 @@
      img = clean exterior render (optional) · floorplans = real plan pages */
   const PROJECTS = [
     { name: "Victoria 18", type: "residential", status: "ready", loc: "Subhashnagar", detail: "Residential Plots", tag: "Gated Community", note: "Delivered · RERA Plots", img: "victoria18", pos: "center 30%", gallery: [
+      { src: "victoria18-7", label: "Row Houses" },
+      { src: "victoria18-6", label: "Home Elevation" },
+      { src: "victoria18-5", label: "Home Entrance" },
       { src: "victoria18-1", label: "Internal Street" },
+      { src: "victoria18-16", label: "Play Area & Garden" },
       { src: "victoria18-2", label: "Children's Play Area" },
       { src: "victoria18-3", label: "Garden Gazebo" },
       { src: "victoria18-4", label: "Parking & Common Area" },
+      { src: "victoria18-11", label: "Living Room" },
+      { src: "victoria18-20", label: "Living Area" },
+      { src: "victoria18-21", label: "Living & Storage" },
+      { src: "victoria18-8", label: "Dining Area" },
+      { src: "victoria18-9", label: "Dining & Kitchen" },
+      { src: "victoria18-10", label: "Open Kitchen" },
+      { src: "victoria18-18", label: "Modular Kitchen" },
+      { src: "victoria18-12", label: "Bedroom" },
+      { src: "victoria18-15", label: "Master Bedroom" },
+      { src: "victoria18-19", label: "Bedroom" },
+      { src: "victoria18-13", label: "Wardrobe" },
+      { src: "victoria18-14", label: "TV Unit" },
+      { src: "victoria18-17", label: "Bathroom Tiles" },
     ]},
     { name: "Victoria Prime", type: "commercial", status: "ready", loc: "Kaliyabid", detail: "Offices · Shops · Showrooms", tag: "Modern Business Hub", note: "Ready Possession", img: "prime", pos: "center", floorplans: [
       { src: "prime-fp-1", label: "Ground & First Floor" },
       { src: "prime-fp-2", label: "2nd–4th & Fifth Floor" },
     ]},
     { name: "Victoria Heights", type: "commercial", status: "ready", loc: "Vidyanagar", detail: "Showrooms & Offices", tag: "Showroom Plaza", note: "Ready Possession", img: "heights", pos: "center 40%" },
-    { name: "Victoria Edge", type: "commercial", status: "uc", loc: "Sidsar", detail: "Showrooms & Offices", tag: "Near New High Court", note: "Possession 2027", floorplans: [
+    { name: "Victoria Edge", type: "commercial", status: "ready", loc: "Sidsar", detail: "Showrooms & Offices", tag: "Near New High Court", note: "Completed", img: "edge", pos: "center 35%", gallery: [
+      { src: "edge-2", label: "Corner View" },
+      { src: "edge-3", label: "Street View" },
+      { src: "edge-4", label: "Entrance" },
+      { src: "edge-1", label: "Terrace Lounge" },
+    ], floorplans: [
       { src: "edge-ground", label: "Ground Floor" },
       { src: "edge-typical", label: "Typical Floor" },
     ]},
@@ -33,7 +55,8 @@
       { src: "corp-typical", label: "Typical Floor" },
       { src: "corp-7th", label: "7th Floor" },
     ]},
-    { name: "Victoria Akshar", type: "commercial", status: "uc", loc: "Waghawadi Road", detail: "Offices · Shops · Showrooms", tag: "Showroom Tower", note: "Possession 2027", img: "akshar", pos: "center" },
+    { name: "Victoria Akshar", type: "commercial", status: "ready", loc: "Waghawadi Road", detail: "Offices · Shops · Showrooms", tag: "Showroom Tower", note: "Completed", img: "akshar", pos: "center" },
+    { name: "Victoria 11", type: "commercial", status: "soon", loc: "Bhavnagar", detail: "Shops · Offices · Showrooms", tag: "Upcoming Landmark", note: "Coming Soon", img: "victoria11", pos: "center 40%" },
   ];
   window.RACHANA_PROJECTS = PROJECTS;
 
@@ -57,12 +80,12 @@
     const artClass = arts[i % arts.length];
     const artKind = artKinds[i % artKinds.length];
     const seed = (i * 53 + 31) % 200;
-    const statusLabel = p.status === "ready" ? "Ready Possession" : "Under Construction";
+    const statusLabel = p.status === "ready" ? "Ready Possession" : p.status === "soon" ? "Upcoming" : "Under Construction";
     const statusClass = p.status === "ready" ? "ready" : "uc";
     const typeLabel = p.type === "residential" ? "Residential" : "Commercial";
     const detailPage = p.type === "residential" ? "residential.html" : "commercial.html";
     const visual = p.img
-      ? `<img class="pc-img" src="assets/img/victoria/${p.img}.jpg" alt="${p.name} — ${p.loc}, Bhavnagar" loading="lazy" style="object-position:${p.pos || "center"}" />`
+      ? `<img class="pc-img" src="assets/img/victoria/${p.img}.jpg" alt="${p.name} — Bhavnagar" loading="lazy" style="object-position:${p.pos || "center"}" />`
       : `<div class="art ${artClass}" data-art="${artKind}" data-seed="${seed}" style="position:absolute;inset:0"></div>`;
     const fpBtn = (p.floorplans && p.floorplans.length)
       ? `<button class="fp-btn" data-fp="${slug(p.name)}" type="button">${planIc} Floor Plans (${p.floorplans.length})</button>`
@@ -71,13 +94,13 @@
       ? `<button class="fp-btn" data-gallery="${slug(p.name)}" type="button">${camIc} Site Photos (${p.gallery.length})</button>`
       : "";
     return `
-    <article class="project-card filter-item reveal" data-cat="${p.type} ${p.status} ${slug(p.loc)}" data-delay="${(i % 3) + 1}">
+    <article class="project-card filter-item reveal" data-cat="${p.type} ${p.status === "soon" ? "uc soon" : p.status} ${slug(p.loc)}" data-delay="${(i % 3) + 1}">
       <div class="pc-visual">
         ${visual}
         <div class="pc-tags"><span class="tag ${p.type === "residential" ? "gold" : "teal"}">${typeLabel}</span><span class="tag ${statusClass}">${statusLabel}</span></div>
         <div class="pc-glitch-label">
           <h3 class="glitch" data-text="${p.name}">${p.name}</h3>
-          <div class="loc">${pin} ${p.loc}, Bhavnagar</div>
+          <div class="loc">${pin} ${p.loc === "Bhavnagar" ? "Bhavnagar" : p.loc + ", Bhavnagar"}</div>
         </div>
       </div>
       <div class="pc-body">
@@ -101,7 +124,7 @@
     const limit = parseInt(box.dataset.limit || "999", 10);
     let list = PROJECTS.filter(p =>
       (type === "all" || p.type === type) &&
-      (status === "all" || p.status === status) &&
+      (status === "all" || p.status === status || (status === "uc" && p.status === "soon")) &&
       (loc === "all" || slug(p.loc) === loc)
     );
     list = list.slice(0, limit);
