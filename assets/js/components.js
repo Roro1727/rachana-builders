@@ -50,6 +50,7 @@
     ]},
     { key: "insights", label: "Insights", href: "blogs.html", sub: [
       ["blogs.html", "Blogs & News"],
+      ["careers.html", "Careers"],
     ]},
     { key: "contact", label: "Contact", href: "contact.html" },
   ];
@@ -58,7 +59,7 @@
     home: "home", residential: "residential", commercial: "commercial",
     projects: "projects", locations: "projects", archives: "projects",
     corporate: "corporate", "why-rachana": "corporate",
-    blogs: "insights", contact: "contact",
+    blogs: "insights", careers: "insights", contact: "contact",
   };
 
   const page = document.body.dataset.page || "home";
@@ -143,6 +144,7 @@
             <li><a href="corporate.html">About Rachana</a></li>
             <li><a href="why-rachana.html">Why Rachana</a></li>
             <li><a href="blogs.html">Blogs & News</a></li>
+            <li><a href="careers.html">Careers</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
