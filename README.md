@@ -34,9 +34,9 @@ publicly-available information about the company (directory listings, RERA recor
   with lit gold windows), so nothing can break.
 - Fully responsive, keyboard-friendly, respects `prefers-reduced-motion`.
 
-## Pages (11)
+## Pages (10)
 Home · Residential · Commercial · Projects (Victoria Collection) · Locations · About Rachana ·
-Why Rachana · Our Journey (Delivered) · Blogs · Careers · Contact.
+Why Rachana · Our Journey (Delivered) · Blogs · Contact.
 
 ## Structure
 ```
