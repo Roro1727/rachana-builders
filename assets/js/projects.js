@@ -13,7 +13,7 @@
   /* type: residential | commercial · status: ready | uc
      img = clean exterior render (optional) · floorplans = real plan pages */
   const PROJECTS = [
-    { name: "Victoria 18", type: "residential", status: "ready", loc: "Subhashnagar", detail: "Residential Plots", tag: "Gated Community", note: "Delivered · RERA Plots", img: "victoria18", pos: "center 30%", gallery: [
+    { name: "Victoria 18", type: "residential", status: "ready", loc: "Subhashnagar", addr: "Ruva", detail: "Residential Plots", tag: "Gated Community", note: "Delivered · RERA Plots", img: "victoria18", pos: "center 30%", gallery: [
       { src: "victoria18-7", label: "Row Houses" },
       { src: "victoria18-6", label: "Home Elevation" },
       { src: "victoria18-5", label: "Home Entrance" },
@@ -36,12 +36,12 @@
       { src: "victoria18-14", label: "TV Unit" },
       { src: "victoria18-17", label: "Bathroom Tiles" },
     ]},
-    { name: "Victoria Prime", type: "commercial", status: "ready", loc: "Kaliyabid", detail: "Offices · Shops · Showrooms", tag: "Modern Business Hub", note: "Ready Possession", img: "prime", pos: "center", floorplans: [
+    { name: "Victoria Prime", type: "commercial", status: "ready", loc: "Kaliyabid", addr: "Near Pani ni Tanki", detail: "Offices · Shops · Showrooms", tag: "Modern Business Hub", note: "Ready Possession", img: "prime", pos: "center", floorplans: [
       { src: "prime-fp-1", label: "Ground & First Floor" },
       { src: "prime-fp-2", label: "2nd–4th & Fifth Floor" },
     ]},
-    { name: "Victoria Heights", type: "commercial", status: "ready", loc: "Vidyanagar", detail: "Showrooms & Offices", tag: "Showroom Plaza", note: "Ready Possession", img: "heights", pos: "center 40%" },
-    { name: "Victoria Edge", type: "commercial", status: "ready", loc: "Sidsar", detail: "Showrooms & Offices", tag: "Near New High Court", note: "Completed", img: "edge", pos: "center 35%", gallery: [
+    { name: "Victoria Heights", type: "commercial", status: "ready", loc: "Vidyanagar", addr: "Iscon Road, Opp Victoria Park", detail: "Showrooms & Offices", tag: "Showroom Plaza", note: "Ready Possession", img: "heights", pos: "center 40%" },
+    { name: "Victoria Edge", type: "commercial", status: "ready", loc: "Sidsar", addr: "Near New Court Building, Sidsar Road", detail: "Showrooms & Offices", tag: "Near New High Court", note: "Completed", img: "edge", pos: "center 35%", gallery: [
       { src: "edge-2", label: "Corner View" },
       { src: "edge-3", label: "Street View" },
       { src: "edge-4", label: "Entrance" },
@@ -50,12 +50,19 @@
       { src: "edge-ground", label: "Ground Floor" },
       { src: "edge-typical", label: "Typical Floor" },
     ]},
-    { name: "Victoria Corporate", type: "commercial", status: "ready", loc: "Krishna Nagar", detail: "Corporate Offices & Showrooms", tag: "Corporate Tower", note: "Ready Possession", img: "corporate", pos: "center 40%", floorplans: [
+    { name: "Victoria Corporate", type: "commercial", status: "ready", loc: "Hill Drive", detail: "Corporate Offices & Showrooms", tag: "Corporate Tower", note: "Ready Possession", img: "corporate", pos: "center 40%", floorplans: [
       { src: "corp-ground", label: "Ground Floor" },
       { src: "corp-typical", label: "Typical Floor" },
       { src: "corp-7th", label: "7th Floor" },
     ]},
-    { name: "Victoria Akshar", type: "commercial", status: "ready", loc: "Waghawadi Road", detail: "Offices · Shops · Showrooms", tag: "Showroom Tower", note: "Completed", img: "akshar", pos: "center" },
+    { name: "Victoria Akshar", type: "commercial", status: "ready", loc: "Waghawadi Road", detail: "Offices · Shops · Showrooms", tag: "Showroom Tower", note: "Completed", img: "akshar", pos: "center", gallery: [
+      { src: "akshar-1", label: "Corner View" },
+      { src: "akshar-2", label: "Street View" },
+      { src: "akshar-3", label: "Entrance & Showrooms" },
+      { src: "akshar-4", label: "Meeting Room" },
+      { src: "akshar-5", label: "Meeting Room" },
+      { src: "akshar-6", label: "Corridor" },
+    ]},
     { name: "Victoria 11", type: "commercial", status: "soon", loc: "Bhavnagar", detail: "Shops · Offices · Showrooms", tag: "Upcoming Landmark", note: "Coming Soon", img: "victoria11", pos: "center 40%" },
   ];
   window.RACHANA_PROJECTS = PROJECTS;
@@ -107,6 +114,7 @@
         <ul class="pc-specs">
           <li>${bldg} ${p.detail}</li>
           <li>${tagIc} ${p.tag}</li>
+          ${p.addr ? `<li>${pin} ${p.addr}</li>` : ""}
         </ul>
         ${(fpBtn || galBtn) ? `<div class="pc-btn-row">${galBtn}${fpBtn}</div>` : ""}
         <div class="pc-foot">
