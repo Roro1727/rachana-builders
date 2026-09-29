@@ -75,7 +75,7 @@
   const brand = `
     <a class="brand" href="index.html" aria-label="Rachana Builders — Bhavnagar">
       <span class="brand-mark">${LOGO}</span>
-      <span class="brand-name">Rachana<small>Builders · Bhavnagar</small></span>
+      <span class="brand-name">Rachana Builders<small>Bhavnagar</small></span>
     </a>`;
 
   const menuHTML = NAV.map(item => {
